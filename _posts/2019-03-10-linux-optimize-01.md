@@ -90,7 +90,9 @@ model name      : Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz
 ```
 
 **wc用法**
+
 Linux系统的wc(Word Count)命令的功能就是用于统计文件中的字节数、字数、行数，并将统计结果输出。
+
 > - -c	         统计字节数
 > - -l                 统计行数
 > - -m              统计字符数，不能与-c一起使用
@@ -123,16 +125,16 @@ stress工具是Linux系统下面压力测试工具，这里我们用作异常进
 
 **stress参数说明**
 ```shell
- -?, --help         show this help statement 		显示帮助信息
-     --version      show version statement	 		显示版本信息
- -v, --verbose      be verbose				 		显示运行信息
- -q, --quiet        be quiet				 		不显示运行信息
- -n, --dry-run      show what would have been done	显示已经完成的指令情况
- -t, --timeout N    timeout after N seconds			指定运行N秒后停止
-     --backoff N    wait factor of N microseconds before work starts	等待N微秒后进程运行
- -c, --cpu N        spawn N workers spinning on sqrt()		产生n个进程 每个进程反复调用sqrt()
- -i, --io N         spawn N workers spinning on sync()		产生n个进程 每个进程反复调用sync()
- -m, --vm N         spawn N workers spinning on malloc()/free()	产生n个进程 malloc/free反复调用
+ -?, --help         show this help statement 显示帮助信息
+     --version      show version statement 显示版本信息
+ -v, --verbose      be verbose 显示运行信息
+ -q, --quiet        be quiet 不显示运行信息
+ -n, --dry-run      show what would have been done 显示已经完成的指令情况
+ -t, --timeout N    timeout after N seconds	指定运行N秒后停止
+     --backoff N    wait factor of N microseconds before work starts 等待N微秒后进程运行
+ -c, --cpu N        spawn N workers spinning on sqrt() 产生n个进程 每个进程反复调用sqrt()
+ -i, --io N         spawn N workers spinning on sync() 产生n个进程 每个进程反复调用sync()
+ -m, --vm N         spawn N workers spinning on malloc()/free() 产生n个进程 malloc/free反复调用
      --vm-bytes B   malloc B bytes per vm worker (default is 256MB)	
      --vm-stride B  touch a byte every B bytes (default is 4096)
      --vm-hang N    sleep N secs before free (default none, 0 is inf)
@@ -161,12 +163,12 @@ sysstat包含了常用的Linux性能工具，用于监控与分析系统的性�
 
 **常用参数**
 ```shell
--u	# 默认的参数，显示各个进程的CPU使用统计
--r  # 显示各个进程内的内存使用统计
--d  # 显示各个进程内的IO使用情况
--p  # 指定进程号
--w  # 显示每个进程的上下文切换情况
--t  # 显示选择任务的统计信息外的额外信息
+-u # 默认的参数，显示各个进程的CPU使用统计
+-r # 显示各个进程内的内存使用统计
+-d # 显示各个进程内的IO使用情况
+-p # 指定进程号
+-w # 显示每个进程的上下文切换情况
+-t # 显示选择任务的统计信息外的额外信息
 ```
 
 ## 3️⃣场景一：CPU密集进程
