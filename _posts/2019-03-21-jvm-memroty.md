@@ -74,7 +74,7 @@ JVM有三种重排列方式(默认1)，但是都遵循下面两个原则
 ```java
 class A {
   long l;
-  int i；
+  int i;
 }
 
 class B extends A {

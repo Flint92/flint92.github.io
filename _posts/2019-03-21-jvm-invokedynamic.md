@@ -109,7 +109,7 @@ m2.invokeExact("123");
 ```
 
 ```java
-MethodHandle m3 = MethodHandles.dropArguments(m1, 0,String.class);
+MethodHandle m3 = MethodHandles.dropArguments(m1, 0, String.class);
 // static bar method.
 m3.invokeExact("123", new Object());
 ```
