@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      深入Java虚拟机(四)
-subtitle:   "invokedynamic"
+subtitle:   "invoke dynamic"
 date:       2019-03-21
 author:     Flint
 header-img: img/jvm-invoke-dynamic.jpg
@@ -90,7 +90,8 @@ m1.invokeExact(new Object());
 m1.invokeExact("123");
 ```
 
-> 调用invokeExact会严格匹配参数类型。例如，一个方法句柄的参数是类型是Object，如果你直接传入String类型，会抛出java.lang.invoke.WrongMethodTypeException异常。需要显示的将String类型转为Object类型
+> 调用invokeExact会严格匹配参数类型。例如，一个方法句柄的参数是类型是Object，如果你直接传入String类型，
+  会抛出java.lang.invoke.WrongMethodTypeException异常。需要显示的将String类型转为Object类型
 
 
 
@@ -100,7 +101,8 @@ m1.invokeExact("123");
 
 - 改：MethodHandle.asType()，invoke的自动适配类型就是利用了这个实现的。
 - 删：MethodHandles.dropArguments()
-- 增：它会往传入的参数中插入额外的参数，再调用另一个方法句柄，对应的API是MethodHandle.bindTo()。这个可以用来实现方法的Curry化
+- 增：它会往传入的参数中插入额外的参数，再调用另一个方法句柄，对应的API是MethodHandle.bindTo()。
+    这个可以用来实现方法的Curry化
 
 ```java
 MethodHandle m2 = m1.asType(MethodType.methodType(void.class, String.class));
@@ -122,13 +124,17 @@ m4.invokeExact();
 
 # invokedynamic
 
-> invokedynamic是Java7引入用来支持方法动态调用的。具体来说，它将调用点(Call Site)抽象成一个Java类，并且将原本由JVM控制的方法调用和方法链接暴露给应用程序。在运行过程中，每一条invokedynamic指令，将捆绑一个调用点，并且会调用该调用点链接的方法句柄。
+> invokedynamic是Java7引入用来支持方法动态调用的。具体来说，它将调用点(Call Site)抽象成一个Java类，
+> 并且将原本由JVM控制的方法调用和方法链接暴露给应用程序。在运行过程中，每一条invokedynamic指令，将捆绑一个调用点，
+> 并且会调用该调用点链接的方法句柄。
 >
-> 在第一次执行invokedynamic指令时，JVM会调用该指令的Bootstrap Method，来生成调用点，并与该invokedynamic指令绑定。之后会知道调用绑定的调用点链接的方法句柄。
+> 在第一次执行invokedynamic指令时，JVM会调用该指令的Bootstrap Method，来生成调用点，并与该invokedynamic指令绑定。
+> 之后会知道调用绑定的调用点链接的方法句柄。
 
 ## lambda表达式
 
-lambda表达式到函数式接口的转换是通过invokedynamic指令实现的。该invokedynamic指令对应的启动方法将通过ASM生成一个适配器类。
+lambda表达式到函数式接口的转换是通过invokedynamic指令实现的。
+该invokedynamic指令对应的启动方法将通过ASM生成一个适配器类。
 
 - 对于没有捕获其他变量的lambda表示式， 该invokedynamic始终返回同一个适配器类的实例
 - 对于捕获其他变量的lambda表达式，每次执行invokedynamic指令都会新建一个新的适配器类的实例
