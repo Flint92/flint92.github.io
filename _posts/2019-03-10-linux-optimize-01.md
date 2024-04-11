@@ -74,43 +74,43 @@ Linux系统有五种状态：
 我们知道相同的平均负载在CPU核数(这里指的是逻辑核数)不同的机器上的意义是完全不同的。所以，我们首先要知道CPU核数多少。
 
 ### top命令获取
-首先执行**top**命令
-```shell
-top - 13:25:00 up 30 days, 16:12,  2 users,  load average: 0.06, 0.15, 0.11
-Tasks:  86 total,   2 running,  84 sleeping,   0 stopped,   0 zombie
-%Cpu(s):  2.3 us,  3.0 sy,  0.0 ni, 94.6 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
-```
-在**top**命令的显示界面，按数字**1**，即可查看当前系统中的总CPU核数。如下图就是为1核的CPU。
-```shell
-top - 13:27:25 up 30 days, 16:14,  2 users,  load average: 0.07, 0.16, 0.13
-Tasks:  86 total,   2 running,  84 sleeping,   0 stopped,   0 zombie
-%Cpu0  :  1.7 us,  1.3 sy,  0.0 ni, 97.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
-```
+- 首先执行**top**命令
+    ```shell
+    top - 13:25:00 up 30 days, 16:12,  2 users,  load average: 0.06, 0.15, 0.11
+    Tasks:  86 total,   2 running,  84 sleeping,   0 stopped,   0 zombie
+    %Cpu(s):  2.3 us,  3.0 sy,  0.0 ni, 94.6 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    ```
+- 在**top**命令的显示界面，按数字**1**，即可查看当前系统中的总CPU核数。如下图就是为1核的CPU。
+    ```shell
+    top - 13:27:25 up 30 days, 16:14,  2 users,  load average: 0.07, 0.16, 0.13
+    Tasks:  86 total,   2 running,  84 sleeping,   0 stopped,   0 zombie
+    %Cpu0  :  1.7 us,  1.3 sy,  0.0 ni, 97.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    ```
 
 ### 查询/proc/cpuinfo
-**grep命令**
-```shell
-# grep 'model name' /proc/cpuinfo
-model name      : Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz
-```
+- **grep命令**
+    ```shell
+    # grep 'model name' /proc/cpuinfo
+    model name      : Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz
+    ```
 
-**wc用法**
+- **wc用法**
 
-Linux系统的wc(Word Count)命令的功能就是用于统计文件中的字节数、字数、行数，并将统计结果输出。
+  Linux系统的wc(Word Count)命令的功能就是用于统计文件中的字节数、字数、行数，并将统计结果输出。
 
-> - -c	         统计字节数
-> - -l                 统计行数
-> - -m              统计字符数，不能与-c一起使用
-> - -w               统计字数，一个字被定义为由空白、跳格或者换行字符分隔的字符串
-> - -L                打印最长行的长度
-> - -help          显示帮助信息
-> - —version  显示版本信息
+  > - -c	         统计字节数
+  > - -l                 统计行数
+  > - -m              统计字符数，不能与-c一起使用
+  > - -w               统计字数，一个字被定义为由空白、跳格或者换行字符分隔的字符串
+  > - -L                打印最长行的长度
+  > - -help          显示帮助信息
+  > - —version  显示版本信息
 
-**统计cpu核数**
-```shell
-# grep 'model name' /proc/cpuinfo | wc -l
-1
-```
+- **统计cpu核数**
+    ```shell
+    # grep 'model name' /proc/cpuinfo | wc -l
+    1
+    ```
 
 ## 4️⃣平均负载和CPU使用率的区别
 
@@ -122,59 +122,60 @@ Linux系统的wc(Word Count)命令的功能就是用于统计文件中的字节�
 
 ## 1️⃣stress工具
 
-stress工具是Linux系统下面压力测试工具，这里我们用作异常进程模拟平均负载升高的场景。
-**Centos下安装**
-```shell
-# yum install stress
-```
+- stress工具是Linux系统下面压力测试工具，这里我们用作异常进程模拟平均负载升高的场景。
 
-**stress参数说明**
-```shell
- -?, --help         show this help statement 显示帮助信息
-     --version      show version statement 显示版本信息
- -v, --verbose      be verbose 显示运行信息
- -q, --quiet        be quiet 不显示运行信息
- -n, --dry-run      show what would have been done 显示已经完成的指令情况
- -t, --timeout N    timeout after N seconds	指定运行N秒后停止
-     --backoff N    wait factor of N microseconds before work starts 等待N微秒后进程运行
- -c, --cpu N        spawn N workers spinning on sqrt() 产生n个进程 每个进程反复调用sqrt()
- -i, --io N         spawn N workers spinning on sync() 产生n个进程 每个进程反复调用sync()
- -m, --vm N         spawn N workers spinning on malloc()/free() 产生n个进程 malloc/free反复调用
-     --vm-bytes B   malloc B bytes per vm worker (default is 256MB)	
-     --vm-stride B  touch a byte every B bytes (default is 4096)
-     --vm-hang N    sleep N secs before free (default none, 0 is inf)
-     --vm-keep      redirty memory instead of freeing and reallocating
- -d, --hdd N        spawn N workers spinning on write()/unlink() 产生N个执行write和unlink函数的进程
-     --hdd-bytes B  write B bytes per hdd worker (default is 1GB)
-```
+- **Centos下安装**
+    ```shell
+    # yum install stress
+    ```
+
+- **stress参数说明**
+    ```shell
+     -?, --help         show this help statement 显示帮助信息
+         --version      show version statement 显示版本信息
+     -v, --verbose      be verbose 显示运行信息
+     -q, --quiet        be quiet 不显示运行信息
+     -n, --dry-run      show what would have been done 显示已经完成的指令情况
+     -t, --timeout N    timeout after N seconds	指定运行N秒后停止
+         --backoff N    wait factor of N microseconds before work starts 等待N微秒后进程运行
+     -c, --cpu N        spawn N workers spinning on sqrt() 产生n个进程 每个进程反复调用sqrt()
+     -i, --io N         spawn N workers spinning on sync() 产生n个进程 每个进程反复调用sync()
+     -m, --vm N         spawn N workers spinning on malloc()/free() 产生n个进程 malloc/free反复调用
+         --vm-bytes B   malloc B bytes per vm worker (default is 256MB)	
+         --vm-stride B  touch a byte every B bytes (default is 4096)
+         --vm-hang N    sleep N secs before free (default none, 0 is inf)
+         --vm-keep      redirty memory instead of freeing and reallocating
+     -d, --hdd N        spawn N workers spinning on write()/unlink() 产生N个执行write和unlink函数的进程
+         --hdd-bytes B  write B bytes per hdd worker (default is 1GB)
+    ```
 
 ## 2️⃣sysstat工具
 
-sysstat包含了常用的Linux性能工具，用于监控与分析系统的性能。
+- sysstat包含了常用的Linux性能工具，用于监控与分析系统的性能。
 
-- mpstat是一个常用的多核CPU性能分析工具，用来实时查看每个CPU的性能指标，以及所有CPU的平均指标。
-- pidstat是一个常用的进程性能分析工具，用来实时查看进程的CPU、内存、I/O以及上下文切换等性能指标
+  - mpstat是一个常用的多核CPU性能分析工具，用来实时查看每个CPU的性能指标，以及所有CPU的平均指标。
+  - pidstat是一个常用的进程性能分析工具，用来实时查看进程的CPU、内存、I/O以及上下文切换等性能指标
 
-**安装**
-方式1：不推荐，因为不能安装最新的版本
-```shell
-# yum install systat
-```
-方式2：使用rpm
-```shell
-# wget -c http://pagesperso-orange.fr/sebastien.godard/sysstat-12.1.3-1.x86_64.rpm
-# rpm -Uvh sysstat-12.1.3-1.x86_64.rpm
-```
+- **安装**
+  - 方式1：不推荐，因为不能安装最新的版本
+      ```shell
+      # yum install systat
+      ```
+  - 方式2：使用rpm
+    ```shell
+    # wget -c http://pagesperso-orange.fr/sebastien.godard/sysstat-12.1.3-1.x86_64.rpm
+    # rpm -Uvh sysstat-12.1.3-1.x86_64.rpm
+    ```
 
-**常用参数**
-```shell
--u # 默认的参数，显示各个进程的CPU使用统计
--r # 显示各个进程内的内存使用统计
--d # 显示各个进程内的IO使用情况
--p # 指定进程号
--w # 显示每个进程的上下文切换情况
--t # 显示选择任务的统计信息外的额外信息
-```
+- **常用参数**
+    ```shell
+    -u # 默认的参数，显示各个进程的CPU使用统计
+    -r # 显示各个进程内的内存使用统计
+    -d # 显示各个进程内的IO使用情况
+    -p # 指定进程号
+    -w # 显示每个进程的上下文切换情况
+    -t # 显示选择任务的统计信息外的额外信息
+    ```
 
 ## 3️⃣场景一：CPU密集进程
 
